@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 bl_instance = Buglytics(
     server_url="http://localhost:5000",
-    connection_token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJBQ0NFU1NfUklHSFRTIjoiRVJSX1JFUE9SVCIsIlBST0pfSUQiOiJkMmI4N2VhNC0zNzNmLTRlNzUtYjk1Mi02MjBmNmNiZDYzY2YiLCJPUkdfSUQiOiIwNDBhMGRmMi03YTc1LTRhY2EtYTdjMy0wOTcwZjQ2ZDU2ZWMiLCJleHAiOjE2MTYzMTE2Mjh9.juuc7uVJbhk0PkJav6wrYIfoVRG7hC7gL8E0lGO7mjU"
+    connection_token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJBQ0NFU1NfUklHSFRTIjoiRVJSX1JFUE9SVHwiLCJQUk9KX0lEIjoiZDJiODdlYTQtMzczZi00ZTc1LWI5NTItNjIwZjZjYmQ2M2NmIiwiT1JHX0lEIjoiMDQwYTBkZjItN2E3NS00YWNhLWE3YzMtMDk3MGY0NmQ1NmVjIn0.v8pN0biMZPCI-tFiR_Lz-sh618uEWtS4bIHvBboGsVM"
 )
 
 @app.route('/divide')
@@ -18,6 +18,13 @@ def divide():
     except:
         bl_instance.report_error(level=120)
         return "Error"
+
+@app.route('/catch', methods=['POST'])
+def catch_error():
+    data = request.get_json()
+    print("Error Reported!")
+    print(data)
+    return "OK"
 
 if __name__ == '__main__':
     app.run(port=5155)
